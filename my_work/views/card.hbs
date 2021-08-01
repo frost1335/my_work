@@ -1,0 +1,47 @@
+<h1>Card page</h1>
+<hr />
+<div id="#card_flex" class="card_flex">
+  {{#if houses.length}}
+    <div class="box_cart">
+      {{#each houses}}
+        <div class="row flex_card">
+          <div class="col_1">
+            <div class="swiper-container mySwiper content_swiper card_swiper">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide"><img src="{{img_1}}" alt="" /></div>
+                <div class="swiper-slide"><img src="{{img_2}}" alt="" /></div>
+                <div class="swiper-slide"><img src="{{img_3}}" alt="" /></div>
+              </div>
+              <div class="swiper-pagination"></div>
+            </div>
+            <p class="one_price price">{{price}}</p>
+          </div>
+          <div class="col_2">
+            <p class="content_text">{{adress}}</p>
+            <p>rooms: <span class="content_text">{{room}}</span></p>
+            <p>floor: <span class="content_text">{{floor}}</span></p>
+          </div>
+          <div class="col_3">
+            <p class="content_text">houses: (<span>{{count}}</span>x)</p>
+            <p class="price total_price">{{tPrice}}</p>
+          </div>
+          <div class="col_4">
+            <button
+              class="btn btn-small card_remove"
+              data-id="{{id}}"
+              data-csrf="{{@root.csrf}}"
+            >Delete</button>
+          </div>
+        </div>
+        <hr />
+      {{/each}}
+    </div>
+    <p class="price">{{price}}</p>
+    <form class="ord_form" action="/orders" method="POST">
+      <button type="submit" class="btn btn-primary">Make an order</button>
+      <input type="hidden" name="_csrf" value="{{csrf}}">
+    </form>
+  {{else}}
+    <p>Basket is empty</p>
+  {{/if}}
+</div>

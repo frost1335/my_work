@@ -1,0 +1,19 @@
+<div class="open_house">
+  {{#each houses}}
+    <img src="{{img_1}}" alt="">
+  {{/each}}
+  <h1>House page</h1>
+  <div class="swiper-container mySwiper content_swiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide"><img src="{{house.img_1}}" alt="" /></div>
+      <div class="swiper-slide"><img src="{{house.img_2}}" alt="" /></div>
+      <div class="swiper-slide"><img src="{{house.img_3}}" alt="" /></div>
+    </div>
+    <div class="swiper-pagination"></div>
+  </div>
+  <p class="content_text">Adress: {{house.adress}}</p>
+  <p class="content_text">Floor: {{house.floor}}</p>
+  <p class="content_text">Room: {{house.room}}</p>
+  <br />
+  <p class="price">{{house.price}}</p>
+</div>

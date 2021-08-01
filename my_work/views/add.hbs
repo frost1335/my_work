@@ -1,0 +1,44 @@
+<h1>Add your house</h1>
+
+<div class="row">
+  <form action="/house/add" method="POST">
+    <div class="input-field col s12">
+      <input id="adress" type="text" class="validate" name="adress" required />
+      <label for="adress">House adress </label>
+      <span class="helper-text" data-error="write this"></span>
+    </div>
+    <div class="input-field col s12">
+      <input id="price" type="number" name="price" class="validate" required />
+      <label for="price">House price </label>
+      <span class="helper-text" data-error="write this"></span>
+    </div>
+    <div class="input-field col s12">
+      <input id="room" type="number" name="room" class="validate" required />
+      <label for="room">House room</label>
+      <span class="helper-text" data-error="write this"></span>
+    </div>
+    <div class="input-field col s12">
+      <input id="floor" type="number" name="floor" class="validate" required />
+      <label for="floor">House floor</label>
+      <span class="helper-text" data-error="write this"></span>
+    </div>
+    <div class="input-field col s12">
+      <input id="img_1" type="text" name="img_1" class="validate" required />
+      <label for="img_1">House image (1)</label>
+      <span class="helper-text" data-error="write this"></span>
+    </div>
+    <div class="input-field col s12">
+      <input id="img_2" type="text" name="img_2" class="validate" />
+      <label for="img_2">House image (2)</label>
+      <span class="helper-text" data-error="write this"></span>
+    </div>
+    <div class="input-field col s12">
+      <input id="img_3" type="text" name="img_3" class="validate" />
+      <label for="img_3">House image (3)</label>
+      <span class="helper-text" data-error="write this"></span>
+    </div>
+    <input type="hidden" name="id" value="{{id}}" />
+    <button type="submit" class="btn btn-primary">Add house</button>
+    <input type="hidden" name="_csrf" value="{{csrf}}">
+  </form>
+</div>

@@ -1,0 +1,54 @@
+<h1>Edit your house</h1>
+
+<div class="row">
+  <form action="/houses/edit" method="POST">
+    <div class="images_edit">
+      <img src="{{house.img_1}}" alt="">
+      <img src="{{house.img_2}}" alt="">
+      <img src="{{house.img_3}}" alt="">
+    </div>
+    <div class="input-field col s12">
+      <input id="adress" type="text" class="validate" name="adress" required value="{{house.adress}}" />
+      <label for="adress">House adress </label>
+      <span class="helper-text" data-error="write this"></span>
+    </div>
+    <div class="input-field col s12">
+      <input id="price" type="number" name="price" class="validate" required value="{{house.price}}" />
+      <label for="price">House price </label>
+      <span class="helper-text" data-error="write this"></span>
+    </div>
+    <div class="input-field col s12">
+      <input id="room" type="number" name="room" class="validate" required value="{{house.room}}" />
+      <label for="room">House room</label>
+      <span class="helper-text" data-error="write this"></span>
+    </div>
+    <div class="input-field col s12">
+      <input id="floor" type="number" name="floor" class="validate" required value="{{house.floor}}" />
+      <label for="floor">House floor</label>
+      <span class="helper-text" data-error="write this"></span>
+    </div>
+    <div class="input-field col s12">
+      <input id="img_1" type="text" name="img_1" class="validate" required value="{{house.img_1}}" />
+      <label for="img_1">House image (1)</label>
+      <span class="helper-text" data-error="write this"></span>
+    </div>
+    <div class="input-field col s12">
+      <input id="img_2" type="text" name="img_2" class="validate" value="{{house.img_2}}" />
+      <label for="img_2">House image (2)</label>
+      <span class="helper-text" data-error="write this"></span>
+    </div>
+    <div class="input-field col s12">
+      <input id="img_3" type="text" name="img_3" class="validate" value="{{house.img_3}}" />
+      <label for="img_3">House image (3)</label>
+      <span class="helper-text" data-error="write this"></span>
+    </div>
+    <input type="hidden" name="id" value="{{house.id}}" />
+    <button type="submit" class="btn btn-primary">Edit house</button>
+    <input type="hidden" name="_csrf" value="{{csrf}}">
+  </form>
+  <form class="edit_form" action="/houses/remove" method="POST">
+    <input type="hidden" name="id" value="{{house.id}}">
+    <button class="btn red">Delete house</button>
+    <input type="hidden" name="_csrf" value="{{csrf}}">
+  </form>
+</div>
