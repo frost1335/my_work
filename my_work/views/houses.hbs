@@ -1,44 +1,51 @@
 <h1>houses</h1>
 {{#if houses.length}}
-{{#each houses}}
-<div class="row">
-  <div class="col s6 offset-s3">
-    <div class="card">
-      <div class="card-image">
-        <div class="swiper-container mySwiper">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide"><img src="{{img_1}}" alt="" /></div>
-            <div class="swiper-slide"><img src="{{img_2}}" alt="" /></div>
-            <div class="swiper-slide"><img src="{{img_3}}" alt="" /></div>
+  {{#each houses}}
+    <div class="row">
+      <div class="col s6 offset-s3">
+        <div class="card">
+          <div class="card-image">
+            <div class="swiper-container mySwiper">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide"><img src="{{img_1}}" alt="" /></div>
+                <div class="swiper-slide"><img src="{{img_2}}" alt="" /></div>
+                <div class="swiper-slide"><img src="{{img_3}}" alt="" /></div>
+              </div>
+              <div class="swiper-pagination"></div>
+            </div>
           </div>
-          <div class="swiper-pagination"></div>
-        </div>
-      </div>
-      <div class="card-content content-flex">
-        <div class="content-left">
-          <p><span class="content_text">Adress: {{adress}}</span></p>
-          <p><span class="content_text">Floor: {{floor}}</span></p>
-          <p><span class="content_text">Room: {{room}}</span></p>
-          <br />
-          <p class="hr_price">Price: <span class="price">{{price}}</span></p>
-        </div>
-        <div class="content-right">
-          <a class="content_link" href="/houses/{{id}}" target="_blank">Open
-            card</a>
-          {{#if @root.isAuth}}
-          <a class="content_link" href="/houses/{{id}}/edit?allow=true" target="_blank">Edit card</a>
-          <form action="/card/add" method="POST">
-            <input type="hidden" name="id" value="{{id}}" />
-            <button type="submit" class="btn btn-primary">Buy house</button>
-            <input type="hidden" name="_csrf" value="{{@root.csrf}}">
-          </form>
-          {{/if}}
+          <div class="card-content content-flex">
+            <div class="content-left">
+              <p><span class="content_text">Adress: {{adress}}</span></p>
+              <p><span class="content_text">Floor: {{floor}}</span></p>
+              <p><span class="content_text">Room: {{room}}</span></p>
+              <br />
+              <p class="hr_price">Price:
+                <span class="price">{{price}}</span></p>
+            </div>
+            <div class="content-right">
+              <a class="content_link" href="/houses/{{id}}" target="_blank">Open
+                card</a>
+              {{#if @root.isAuth}}
+                {{#ifeq userId._id @root.userId}}
+                  <a
+                    class="content_link"
+                    href="/houses/{{id}}/edit?allow=true"
+                    target="_blank"
+                  >Edit card</a>
+                {{/ifeq}}
+                <form action="/card/add" method="POST">
+                  <input type="hidden" name="id" value="{{id}}" />
+                  <button type="submit" class="btn btn-primary">Buy house</button>
+                  <input type="hidden" name="_csrf" value="{{@root.csrf}}" />
+                </form>
+              {{/if}}
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
-{{/each}}
+  {{/each}}
 {{else}}
-<p>here is empty</p>
+  <p>here is empty</p>
 {{/if}}

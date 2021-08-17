@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const House = require("../models/House");
 const router = Router();
-const auth = require('../middleware/auth')
+const auth = require("../middleware/auth");
 
 router.get("/", auth, (req, res) => {
   res.render("add", {
@@ -19,6 +19,7 @@ router.post("/add", auth, async (req, res) => {
     img_1: req.body.img_1,
     img_2: req.body.img_2,
     img_3: req.body.img_3,
+    userId: req.user,
   });
   try {
     await house.save();

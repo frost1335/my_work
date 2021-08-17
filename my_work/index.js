@@ -20,6 +20,7 @@ const keys = require("./keys");
 const hbs = exphbs.create({
   defaultLayout: "main",
   extname: "hbs",
+  helpers: require('./utils/hbs-helpers'),
   runtimeOptions: {
     allowProtoPropertiesByDefault: true,
     allowProtoMethodsByDefault: true,
