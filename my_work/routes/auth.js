@@ -1,11 +1,12 @@
 const { Router } = require("express");
 const nodemailer = require("nodemailer");
 const sendgrid = require("nodemailer-sendgrid-transport");
-const {body, } = require('express-validator/check')
+const { validationResult } = require("express-validator/check");
 const crypto = require("crypto");
 const router = Router();
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
+const { registerValidators } = require("../utils/validators");
 
 router.get("/", async (req, res) => {
   res.render("auth/login", {
@@ -54,30 +55,28 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.post("/register", async (req, res) => {
+router.post("/register", registerValidators, async (req, res) => {
   try {
-    const { email, password, confirm, name } = req.body;
-    const candidate = await User.findOne({
-      email,
-    });
+    const { email, password, name } = req.body;
 
-    if (candidate) {
-      req.flash("errorRegister", "email is avaible");
-      res.redirect("/auth#register");
-    } else {
-      const hashPassword = await bcrypt.hash(password, 10);
-      const user = new User({
-        email,
-        name,
-        password: hashPassword,
-        cart: {
-          items: [],
-        },
-      });
-      await user.save();
-      res.redirect("/auth#login");
-      // transporter.sendMail();
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      req.flash("errorRegister", errors.array()[0].msg);
+      return res.status(422).redirect("/auth#register");
     }
+
+    const hashPassword = await bcrypt.hash(password, 10);
+    const user = new User({
+      email,
+      name,
+      password: hashPassword,
+      cart: {
+        items: [],
+      },
+    });
+    await user.save();
+    res.redirect("/auth#login");
+    // transporter.sendMail();
   } catch (e) {
     console.log(e);
   }
@@ -102,7 +101,6 @@ router.post("reset", (req, res) => {
       const candidate = await User.findOne({ email: req.body.email });
 
       if (candidate) {
-          
       } else {
         req.flash("error", "this email is not defined !");
         res.redirect("auth/reset");

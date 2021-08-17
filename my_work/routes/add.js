@@ -1,7 +1,9 @@
 const { Router } = require("express");
 const House = require("../models/House");
 const router = Router();
+const { validationResult } = require("express-validator/check");
 const auth = require("../middleware/auth");
+const { houseValidators } = require("../utils/validators");
 
 router.get("/", auth, (req, res) => {
   res.render("add", {
@@ -10,7 +12,17 @@ router.get("/", auth, (req, res) => {
   });
 });
 
-router.post("/add", auth, async (req, res) => {
+router.post("/add", auth, houseValidators, async (req, res) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(422).res.render("add", {
+      title: "Add house",
+      isAdd: true,
+      error: errors.array()[0].msg,
+    });
+  }
+
   const house = new House({
     adress: req.body.adress,
     price: req.body.price,

@@ -1,5 +1,7 @@
 <h1>Add your house</h1>
-
+{{#if error}}
+  <p class="alert">{{error}}</p>
+{{/if}}
 <div class="row">
   <form action="/house/add" method="POST">
     <div class="input-field col s12">
@@ -39,6 +41,6 @@
     </div>
     <input type="hidden" name="id" value="{{id}}" />
     <button type="submit" class="btn btn-primary">Add house</button>
-    <input type="hidden" name="_csrf" value="{{csrf}}">
+    <input type="hidden" name="_csrf" value="{{csrf}}" />
   </form>
 </div>
