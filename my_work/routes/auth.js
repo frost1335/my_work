@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const nodemailer = require("nodemailer");
 const sendgrid = require("nodemailer-sendgrid-transport");
-const { validationResult } = require("express-validator/check");
+const { validationResult } = require("express-validator");
 const crypto = require("crypto");
 const router = Router();
 const User = require("../models/User");

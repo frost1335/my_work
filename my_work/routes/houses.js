@@ -1,6 +1,9 @@
 const { Router } = require("express");
 const router = Router();
 const House = require("../models/House");
+const { validationResult } = require("express-validator");
+
+const { houseValidators } = require("../utils/validators");
 
 function isOwner(house, req) {
   return house.userId.toString() == req.user._id.toString();
@@ -51,14 +54,18 @@ router.post("/remove", async (req, res) => {
   res.redirect("/houses");
 });
 
-router.post("/edit", async (req, res) => {
+router.post("/edit", houseValidators, async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).redirect(`/houses/${req.body.id}/edit`);
+  }
   try {
     const house = await House.findById(req.body.id);
     if (!isOwner(house, req)) {
       return res.redirect("/houses");
     }
-    Object.assign(house, req.body)
-    await house.save()    
+    Object.assign(house, req.body);
+    await house.save();
     res.redirect("/houses");
   } catch (e) {
     console.log(e);

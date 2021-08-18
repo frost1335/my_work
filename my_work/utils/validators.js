@@ -1,4 +1,4 @@
-const { body } = require("express-validator/check");
+const { body } = require("express-validator");
 const User = require("../models/User");
 
 exports.registerValidators = [
@@ -34,7 +34,13 @@ exports.registerValidators = [
     .trim(),
 ];
 
-
 exports.houseValidators = [
-    body 
-]
+  body("adress")
+    .isLength({ min: 3 })
+    .withMessage("Adress must be minimum 5 charters")
+    .trim(),
+  body("price").isNumeric().withMessage("Write the trust price !"),
+  body("room").isNumeric().withMessage("Write the trust room !"),
+  body("floor").isNumeric().withMessage("Write the trust floor !"),
+  body("img_1", "Write the trust URL image !").isURL(),
+];
