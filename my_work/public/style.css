@@ -47,6 +47,10 @@ nav {
   background: rgb(195, 191, 191);
 }
 
+.swiper-container{
+  overflow: hidden,
+}
+
 .swiper-slide {
   text-align: center;
   display: flex;
